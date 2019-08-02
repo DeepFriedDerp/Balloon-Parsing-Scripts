@@ -13,7 +13,11 @@ datastr = c1{4};
 
 while newline ~= -1
     bin_str = [];
-    for i1 = 1:length(datastr)
+    c1 = strsplit(newline, ',');
+    datastr = c1{4};
+        % i1 = 1;
+    % while i1 ~= length(newline)
+    for i1 = 1:2:length(datastr)
     %   char1 = h2b(datastr(i1))
     %   char2 = h2b(datastr(i1+1))
     %   keyboard
@@ -29,17 +33,23 @@ while newline ~= -1
     %   % dec2bin(cng2)
     %   hex1 = dec2hex(cng1);
     %   hex2 = dec2hex(cng2);
+      asci1 = [];
       hex1 = datastr(i1);
-      smpl = '0x00';
+      hex2 = datastr(i1 + 1);
       if strcmp(hex1, 'F') == 1
-          hex1 = 'F0';
+          smp1 = ['0x', hex1, hex2];
+          asci1 = decompress(smp1);
+      else
+          smp1 = ['0x0', hex1];
+          smp2 = ['0x0', hex2];
+          asci1 = [decompress(smp1), decompress(smp2)];
       end
-      smp1 = [smpl(1:4-length(hex1)), hex1];
-      asci1 = decompress(smp1);
       bin_str = [bin_str, asci1];
+%     i1 = i1 + 2;
     end 
+    
     fprintf(fidD, '%s\n', bin_str);
-    newline = fgetl(fid);
+    newline = fgetl(fid)
 end
 
 fclose(fid);

@@ -66,7 +66,9 @@ switch ins
       case '0xFE'
         outs = 'F';         
       case '0xFF'
-        outs = ' ';         
+        outs = ' ';        
+      case '0x0F'
+        outs = '';
     otherwise
         error('ins not recognized');
 end
